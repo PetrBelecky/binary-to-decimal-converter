@@ -1,9 +1,16 @@
+// TODOs 
+// - add validator for binary input -> only 1&0, not starting with 0
+// - add validator for decimal input -> only number (no float, no signs)
+// - add text about decimal/binary conversion
+// - add diagrams about decimal/binary conversion
+// - add Bulma / Tailwind CSS
+
 import "./main.scss";
 
 let power = 0;
 let decimalSum = 0;
 let arr = [];
-let conversion = 'decimal-to-binary';
+let conversion = 'binary-to-decimal';
 
 const divide = (num) => {
   if (num === 0) {
@@ -49,7 +56,7 @@ const init = () => {
   const formElm = document.querySelector('#form-converter');
   const inputElm = document.querySelector('#input');
   const outputElm = document.querySelector('#output');
-  const submitElm = document.querySelector('#convert');
+  const descriptionElm = document.querySelector('#description');
   const switchElm = document.querySelector('#switch');
 
   formElm.addEventListener('submit', (e) => {
@@ -74,15 +81,15 @@ const init = () => {
 
     if (conversion === 'decimal-to-binary') {
       conversion = 'binary-to-decimal';
+      descriptionElm.textContent = 'Converting binary to decimal';
     } else {
       conversion = 'decimal-to-binary';
+      descriptionElm.textContent = 'Converting decimal to binary';
     }
 
     console.log(conversion);
-
   })
 }
-
 
 document.addEventListener('DOMContentLoaded', init);
 
