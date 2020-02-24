@@ -2,8 +2,8 @@ import "./main.scss";
 
 let power = 0;
 let decimalSum = 0;
-
 let arr = [];
+let conversion = 'decimal-to-binary';
 
 const divide = (num) => {
   if (num === 0) {
@@ -24,11 +24,14 @@ const resetValues = () => {
 }
 
 const convertDecimalToBinary = (num) => {
+
+  resetValues();
   divide(num);
+  arr = arr.join('');
   return (arr);
 }
 
-const convertBinaryToDecimal = (num, output) => {
+const convertBinaryToDecimal = (num) => {
 
   resetValues();
 
@@ -39,29 +42,44 @@ const convertBinaryToDecimal = (num, output) => {
     power += 1;
   }
 
-  console.log(decimalSum);
-  console.log(output);
-  output.value = decimalSum;
-
+  return (decimalSum);
 }
-
 
 const init = () => {
   const formElm = document.querySelector('#form-converter');
   const inputElm = document.querySelector('#input');
   const outputElm = document.querySelector('#output');
-  const submitElm = document.querySelector('#submit');
-  const convertElm = document.querySelector('#convert');
-
-  console.log(formElm);
-  console.log(inputElm);
-  console.log(outputElm);
-  console.log(submitElm);
-  console.log(convertElm);
+  const submitElm = document.querySelector('#convert');
+  const switchElm = document.querySelector('#switch');
 
   formElm.addEventListener('submit', (e) => {
     e.preventDefault();
-    convertBinaryToDecimal(inputElm.value, outputElm);
+    let result = 0;
+
+    switch (conversion) {
+      case 'decimal-to-binary':
+        result = convertDecimalToBinary(inputElm.value);
+        outputElm.value = result;
+        break;
+
+      case 'binary-to-decimal':
+        result = convertBinaryToDecimal(inputElm.value);
+        outputElm.value = result;
+        break;
+    }
+  })
+
+  switchElm.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    if (conversion === 'decimal-to-binary') {
+      conversion = 'binary-to-decimal';
+    } else {
+      conversion = 'decimal-to-binary';
+    }
+
+    console.log(conversion);
+
   })
 }
 
